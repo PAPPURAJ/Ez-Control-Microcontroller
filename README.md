@@ -6,7 +6,7 @@
 ![Version](https://img.shields.io/badge/Version-5.0.0-green?style=for-the-badge)
 ![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
 
-**Complete NodeMCU-based car control system with 8-direction movement, WiFi connectivity, and mobile app integration**
+**Complete NodeMCU-based load & car control system with 8-direction movement, WiFi connectivity, and mobile app integration**
 
 [🌐 Live Demo](https://ezcontrol.pappuraj.com) • [📱 Mobile App](#mobile-app) • [🔧 Setup Guide](#setup-guide)
 
