@@ -6,10 +6,10 @@
  * GPIO Control: Can control all pins (D0-D8, A0)
  * 
  * Pin Configuration:
- * - D1: Left Motor Forward (IN1)
- * - D2: Left Motor Backward (IN2) 
- * - D3: Right Motor Forward (IN3)
- * - D4: Right Motor Backward (IN4)
+ * - D1: Right Motor Forward (IN1)
+ * - D2: Right Motor Backward (IN2)
+ * - D3: Left Motor Forward (IN3)
+ * - D4: Left Motor Backward (IN4) 
  * - D5: Motor Speed Control (ENA/ENB)
  * - D0, D6-D8, A0: Available for GPIO control
  * 
@@ -17,7 +17,7 @@
  *
  *  Author: Pappuraj Bhottacharjee
  *  Email: me@pappuraj.com
- *  Website: https://pappuraj.com
+ *  Website: https://ezcontrol.pappuraj.com
  *  Date: 07/08/2025
  *  Version: 3.0.0
  *  Description: This is a complete controller for the EZ Control project.
@@ -44,10 +44,11 @@ const int NUM_GPIO_PINS = 10;
 bool gpioStates[NUM_GPIO_PINS] = {false, false, false, false, false, false, false, false, false, false};
 
 // Car Control Pins
-const int LEFT_MOTOR_FORWARD = D1;
-const int LEFT_MOTOR_BACKWARD = D2;
-const int RIGHT_MOTOR_FORWARD = D3;
-const int RIGHT_MOTOR_BACKWARD = D4;
+
+const int RIGHT_MOTOR_FORWARD = D1;
+const int RIGHT_MOTOR_BACKWARD = D2;
+const int LEFT_MOTOR_FORWARD = D3;
+const int LEFT_MOTOR_BACKWARD = D4;
 const int MOTOR_SPEED = D5;
 
 // Car Control Variables
