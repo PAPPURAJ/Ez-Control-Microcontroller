@@ -313,9 +313,9 @@ EZ Control NodeMCU Ready!
 ### 📱 Mobile App (Flutter)
 
 #### Download Instructions:
-1. **Android**: Available on Google Play Store
+1. **Android**: Available on [Google Play Store](https://play.google.com/store/apps/details?id=com.blogspot.rajbtc.easierstudy)
 2. **iOS**: Available on App Store
-3. **Direct Download**: [Download APK](link-to-apk)
+3. **Direct Download**: [Download APK](https://play.google.com/store/apps/details?id=com.blogspot.rajbtc.easierstudy)
 
 #### App Features:
 - 🎮 **Touch Controls**: Intuitive touch interface
