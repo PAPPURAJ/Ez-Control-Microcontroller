@@ -1,12 +1,12 @@
-# 🚗 EZ Control - NodeMCU Car Control System
+# 🚗 EZ Control - Advanced NodeMCU Controller
 
 <div align="center">
 
-![EZ Control Logo](https://img.shields.io/badge/EZ%20Control-Car%20System-blue?style=for-the-badge&logo=arduino)
-![Version](https://img.shields.io/badge/Version-5.0.0-green?style=for-the-badge)
+![EZ Control Logo](https://img.shields.io/badge/EZ%20Control-Advanced%20Controller-blue?style=for-the-badge&logo=arduino)
+![Version](https://img.shields.io/badge/Version-4.0.0-green?style=for-the-badge)
 ![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
 
-**Complete NodeMCU-based load & car control system with 8-direction movement, WiFi connectivity, and mobile app integration**
+**Advanced NodeMCU controller with car control, GPIO control, WebSocket support, and dual-mode WiFi operation**
 
 [🌐 Live Demo](https://ezcontrol.pappuraj.com) • [📱 Mobile App](#mobile-app) • [🔧 Setup Guide](#setup-guide)
 
@@ -31,40 +31,50 @@
 
 ## 🎯 Overview
 
-EZ Control is a comprehensive car control system that transforms your NodeMCU into a powerful WiFi-enabled car controller. The system supports 8-direction movement, real-time speed control, and seamless integration with both mobile apps and web interfaces.
+EZ Control is an **advanced NodeMCU controller** that provides both **car control** and **GPIO control** simultaneously. The system features real-time WebSocket communication, WiFi/hotspot dual-mode operation, control over all 10 available pins, and seamless integration with mobile apps and web interfaces.
 
 ### 🌟 Key Highlights
 
-- **8-Direction Control**: Forward, Backward, Left, Right, and 4 diagonal movements
-- **WiFi Connectivity**: Automatic WiFi connection with Access Point fallback
-- **Real-time Control**: Instant response with visual feedback
-- **Mobile Integration**: Works with dedicated Flutter app and web interface
-- **Speed Control**: PWM-based speed adjustment (0-1023)
-- **Status Monitoring**: Real-time car status and pin state monitoring
+- **🚗 Car Control**: 8-direction movement with diagonal support and speed control
+- **🔌 GPIO Control**: ALL 10 pins (D0-D8, A0) available for general purpose use
+- **🌐 WebSocket Support**: Real-time communication for instant response
+- **📡 Dual WiFi Mode**: WiFi client + hotspot fallback
+- **🔄 OTA Updates**: Over-the-air firmware updates
+- **📱 Flutter Integration**: Built-in device discovery for mobile apps
 
 ---
 
 ## 🚀 Features
 
 ### 🎮 Car Control Features
-- ✅ **8-Direction Movement**: Complete directional control
-- ✅ **Speed Control**: Real-time PWM speed adjustment
-- ✅ **Command Timeout**: Automatic stop after inactivity
+- ✅ **8-Direction Movement**: Complete directional control including diagonals
+- ✅ **Speed Control**: Real-time PWM speed adjustment (0-1023)
+- ✅ **Motor Management**: Individual motor control via GPIO
 - ✅ **Visual Feedback**: LED status indicators
 - ✅ **Error Recovery**: Robust error handling and logging
 
+### 🔌 GPIO Control Features
+- ✅ **10 Available Pins**: D0, D1, D2, D3, D4, D5, D6, D7, D8, A0
+- ✅ **Individual Control**: Set each pin HIGH/LOW independently
+- ✅ **Batch Operations**: Control multiple pins simultaneously
+- ✅ **Toggle Function**: Toggle pin states with single command
+- ✅ **Reset Function**: Reset all pins to LOW state
+- ✅ **Real-time Monitoring**: Live pin state updates
+
 ### 🌐 Connectivity Features
+- ✅ **WebSocket Server**: Real-time communication on port 81
+- ✅ **HTTP API**: RESTful endpoints on port 80
 - ✅ **WiFi Auto-Connect**: Automatic network connection
-- ✅ **Access Point Mode**: Fallback hotspot for direct connection
-- ✅ **mDNS Support**: Network discovery enhancement
-- ✅ **RESTful API**: JSON-based communication
-- ✅ **Web Interface**: Built-in status page
+- ✅ **Hotspot Mode**: Fallback network when WiFi fails
+- ✅ **OTA Updates**: Firmware updates without physical connection
+- ✅ **Device Discovery**: Automatic device detection for Flutter apps
 
 ### 📱 Integration Features
 - ✅ **Mobile App Support**: Flutter app integration
 - ✅ **Web App Support**: React web interface
 - ✅ **Device Discovery**: Automatic device detection
 - ✅ **Cross-Platform**: Works on Android, iOS, and Web
+- ✅ **Real-time Status**: Live updates via WebSocket
 
 ---
 
@@ -91,8 +101,9 @@ EZ Control is a comprehensive car control system that transforms your NodeMCU in
 - **Required Libraries**:
   - `ESP8266WiFi` (built-in)
   - `ESP8266WebServer` (built-in)
+  - `WebSocketsServer` by Markus Sattler
   - `ArduinoJson` (v6.x)
-  - `ESP8266mDNS` (built-in)
+  - `ESP8266HTTPUpdateServer` (built-in)
 
 ---
 
@@ -102,15 +113,24 @@ EZ Control is a comprehensive car control system that transforms your NodeMCU in
 
 #### Pin Configuration
 
-| NodeMCU Pin | L298N Pin | Function | Wire Color |
-|-------------|-----------|----------|------------|
-| **D1 (GPIO5)** | **IN1** | Right Motor Forward | Red |
-| **D2 (GPIO4)** | **IN2** | Right Motor Backward | Blue |
-| **D3 (GPIO0)** | **IN3** | Left Motor Forward | Green |
-| **D4 (GPIO2)** | **IN4** | Left Motor Backward | Yellow |
-| **D5 (GPIO14)** | **ENA** | Motor Speed Control | Orange |
-| **3.3V** | **VCC (Logic)** | Logic Power | White |
-| **GND** | **GND** | Common Ground | Black |
+| NodeMCU Pin | GPIO | L298N Pin | Function | GPIO Available |
+|-------------|------|-----------|----------|----------------|
+| **D1 (GPIO5)** | GPIO5 | **IN1** | Right Motor Forward | ✅ Yes |
+| **D2 (GPIO4)** | GPIO4 | **IN2** | Right Motor Backward | ✅ Yes |
+| **D3 (GPIO0)** | GPIO0 | **IN3** | Left Motor Forward | ✅ Yes |
+| **D4 (GPIO2)** | GPIO2 | **IN4** | Left Motor Backward | ✅ Yes |
+| **D5 (GPIO14)** | GPIO14 | **ENA/ENB** | Motor Speed Control | ✅ Yes |
+
+#### Additional GPIO Pins
+| NodeMCU Pin | GPIO | Function | GPIO Available |
+|-------------|------|----------|----------------|
+| **D0** | GPIO16 | General Purpose | ✅ Yes |
+| **D6** | GPIO12 | General Purpose | ✅ Yes |
+| **D7** | GPIO13 | General Purpose | ✅ Yes |
+| **D8** | GPIO15 | General Purpose | ✅ Yes |
+| **A0** | A0 | Analog Input/Output | ✅ Yes |
+
+**Total Available Pins: 10 (D0-D8, A0)**
 
 #### Motor Connections
 
@@ -152,6 +172,7 @@ EZ Control is a comprehensive car control system that transforms your NodeMCU in
 #### 3.3 Install Required Libraries
 1. Go to **Tools** → **Manage Libraries**
 2. Search and install:
+   - **WebSocketsServer** by Markus Sattler
    - **ArduinoJson** by Benoit Blanchon (v6.x)
 
 ---
@@ -160,7 +181,7 @@ EZ Control is a comprehensive car control system that transforms your NodeMCU in
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                        EZ Control Car System                    │
+│                    EZ Control Advanced Controller               │
 ├─────────────────────────────────────────────────────────────────┤
 │                                                                 │
 │  NodeMCU ESP8266                    L298N Motor Driver          │
@@ -170,7 +191,7 @@ EZ Control is a comprehensive car control system that transforms your NodeMCU in
 │  │ D2 ──────────── │────────────────▶│ IN2                    │ │
 │  │ D3 ──────────── │────────────────▶│ IN3                    │ │
 │  │ D4 ──────────── │────────────────▶│ IN4                    │ │
-│  │ D5 ──────────── │────────────────▶│ ENA                    │ │
+│  │ D5 ──────────── │────────────────▶│ ENA/ENB                │ │
 │  │                 │                │                         │ │
 │  │ 3.3V ────────── │────────────────▶│ VCC (Logic)            │ │
 │  │ GND ─────────── │────────────────▶│ GND                    │ │
@@ -202,6 +223,9 @@ EZ Control is a comprehensive car control system that transforms your NodeMCU in
 │           │                        │  │     │    │     │     │ │
 │           │                        │  └─────┘    └─────┘     │ │
 │           │                        └─────────────────────────┘ │
+│                                                                 │
+│  Additional GPIO Pins Available:                                │
+│  D0, D6, D7, D8, A0 - Connect to any devices you want to control │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
@@ -233,9 +257,13 @@ EZ Control is a comprehensive car control system that transforms your NodeMCU in
 1. Open `Ez Control NodeMCU Code.ino`
 2. Locate the WiFi configuration section:
    ```cpp
-   // WiFi Configuration
-   const char* ssid = "YOUR_WIFI_NAME";        // Change this
-   const char* password = "YOUR_WIFI_PASSWORD"; // Change this
+   // WiFi credentials
+   const char* ssid = "IOT";           // Replace with your WiFi name
+   const char* password = "11223344";   // Replace with your WiFi password
+
+   // Hotspot configuration
+   const char* hotspot_ssid = "Ez Control Device";
+   const char* hotspot_password = "11223344";
    ```
 3. Replace with your WiFi credentials
 
@@ -251,13 +279,13 @@ EZ Control is a comprehensive car control system that transforms your NodeMCU in
 
 Check Serial Monitor for:
 ```
-=== EZ Control Flexible Controller ===
-Version: 5.0.0
-Connecting to WiFi...
-WiFi connected!
-IP address: 192.168.1.100
-mDNS responder started
-HTTP server started
+EZ Control NodeMCU Starting...
+All 10 pins (D0-D8, A0) available for GPIO control!
+WiFi connected successfully!
+IP Address: 192.168.1.100
+WebSocket server started on port 81
+HTTP server started on port 80
+EZ Control NodeMCU Ready!
 ```
 
 ---
@@ -270,8 +298,9 @@ HTTP server started
 
 #### Features:
 - 🎮 **8-Direction Control**: Joystick and button controls
+- 🔌 **GPIO Control**: Control all 10 pins individually
 - 🔍 **Auto Discovery**: Automatic device scanning
-- 📊 **Real-time Status**: Live car status monitoring
+- 📊 **Real-time Status**: Live updates via WebSocket
 - 🎨 **Modern UI**: Beautiful responsive design
 - 📱 **Mobile Friendly**: Works on all devices
 
@@ -279,7 +308,7 @@ HTTP server started
 1. **Open the website**: [https://ezcontrol.pappuraj.com](https://ezcontrol.pappuraj.com)
 2. **Wait for auto-scan** or click "Start Scan"
 3. **Click on your device** in the discovered list
-4. **Start controlling** your car!
+4. **Start controlling** your car and GPIO pins!
 
 ### 📱 Mobile App (Flutter)
 
@@ -290,6 +319,7 @@ HTTP server started
 
 #### App Features:
 - 🎮 **Touch Controls**: Intuitive touch interface
+- 🔌 **GPIO Control**: Control all pins from mobile
 - 🔍 **Device Discovery**: Automatic NodeMCU detection
 - 📊 **Status Dashboard**: Real-time monitoring
 - ⚙️ **Settings**: Customizable controls
@@ -300,7 +330,7 @@ HTTP server started
 2. **Open the app** and grant permissions
 3. **Wait for device discovery** or scan manually
 4. **Tap on your NodeMCU device**
-5. **Start controlling** your car!
+5. **Start controlling** your car and GPIO pins!
 
 ---
 
@@ -308,103 +338,170 @@ HTTP server started
 
 ### Basic Controls
 
-#### 8-Direction Movement
+#### 8-Direction Car Movement
 | Direction | Left Motor | Right Motor | Description |
 |-----------|------------|-------------|-------------|
 | **Forward** | Forward | Forward | Straight forward |
 | **Backward** | Backward | Backward | Straight backward |
-| **Left** | Stop | Forward | Turn left |
-| **Right** | Forward | Stop | Turn right |
-| **Left-Forward** | Forward | Forward | Diagonal left-forward |
-| **Right-Forward** | Forward | Forward | Diagonal right-forward |
-| **Left-Backward** | Backward | Backward | Diagonal left-backward |
-| **Right-Backward** | Backward | Backward | Diagonal right-backward |
+| **Left** | Backward | Forward | Turn left |
+| **Right** | Forward | Backward | Turn right |
+| **Left-Forward** | Forward | Forward | Diagonal left-forward (right motor slower) |
+| **Right-Forward** | Forward | Forward | Diagonal right-forward (left motor slower) |
+| **Left-Backward** | Backward | Backward | Diagonal left-backward (right motor slower) |
+| **Right-Backward** | Backward | Backward | Diagonal right-backward (left motor slower) |
 
 #### Speed Control
 - **Range**: 0-1023 (PWM values)
 - **Default**: 512 (50% speed)
 - **Presets**: 25%, 50%, 75%, 100%
 
+### GPIO Control
+
+#### Individual Pin Control
+- **Set HIGH**: `{"command": "gpio_control", "pin": "D6", "state": 1}`
+- **Set LOW**: `{"command": "gpio_control", "pin": "D6", "state": 0}`
+
+#### Batch Operations
+Control multiple pins simultaneously:
+```json
+{
+  "command": "gpio_batch",
+  "pins": {
+    "D0": 1,
+    "D6": 0,
+    "D7": 1,
+    "A0": 1
+  }
+}
+```
+
+#### Special Functions
+- **Toggle**: `{"command": "gpio_control", "pin": "D6", "action": "toggle"}`
+- **Reset All**: `{"command": "gpio_control", "action": "reset"}`
+
 ### Control Methods
 
-#### 1. Web Interface
+#### 1. WebSocket (Recommended)
+- **Port**: 81
+- **URL**: `ws://[DEVICE_IP]:81`
+- **Real-time**: Instant response
+- **JSON Commands**: Structured control
+
+#### 2. HTTP API (Fallback)
+- **Port**: 80
+- **URL**: `http://[DEVICE_IP]/`
+- **REST Endpoints**: Standard HTTP methods
+- **Response**: Text/JSON
+
+#### 3. Web Interface
 - **Joystick Mode**: Drag joystick for direction
 - **Button Mode**: Click and hold buttons
+- **GPIO Panel**: Control all 10 pins
 - **Speed Slider**: Adjust speed in real-time
 
-#### 2. Mobile App
+#### 4. Mobile App
 - **Touch Joystick**: Intuitive touch control
+- **GPIO Buttons**: Individual pin control
 - **Gesture Controls**: Swipe for direction
 - **Voice Commands**: Voice control (future)
-
-#### 3. API Commands
-
-For instance the IP of your NodeMCU is 192.168.1.100
-```bash
-# Basic movements
-curl -X POST http://192.168.1.100/car_forward
-curl -X POST http://192.168.1.100/car_backward
-curl -X POST http://192.168.1.100/car_left
-curl -X POST http://192.168.1.100/car_right
-curl -X POST http://192.168.1.100/car_stop
-
-# Speed control
-curl -X POST "http://192.168.1.100/car_speed?speed=512"
-
-# Diagonal movements
-curl -X POST http://192.168.1.100/car_left_forward
-curl -X POST http://192.168.1.100/car_right_forward
-curl -X POST http://192.168.1.100/car_left_backward
-curl -X POST http://192.168.1.100/car_right_backward
-```
 
 ---
 
 ## 🔍 API Documentation
 
-### Car Control Endpoints
+### WebSocket Commands
 
+#### Car Control
+```json
+// Basic movement
+{"command": "car_control", "action": "forward"}
+{"command": "car_control", "action": "backward"}
+{"command": "car_control", "action": "left"}
+{"command": "car_control", "action": "right"}
+{"command": "car_control", "action": "stop"}
+
+// Diagonal movement
+{"command": "car_control", "action": "lf"}
+{"command": "car_control", "action": "rf"}
+{"command": "car_control", "action": "lb"}
+{"command": "car_control", "action": "rb"}
+
+// Speed control
+{"command": "car_control", "action": "speed", "speed": 512}
+```
+
+#### GPIO Control
+```json
+// Single pin control
+{"command": "gpio_control", "pin": "D6", "state": 1}
+
+// Batch pin control
+{"command": "gpio_batch", "pins": {"D0": 1, "D6": 0, "D7": 1}}
+
+// Get status
+{"command": "get_status"}
+```
+
+### HTTP Endpoints
+
+#### Car Control
 | Endpoint | Method | Description | Parameters |
 |----------|--------|-------------|------------|
-| `/car_forward` | POST | Move forward | None |
-| `/car_backward` | POST | Move backward | None |
-| `/car_left` | POST | Turn left | None |
-| `/car_right` | POST | Turn right | None |
-| `/car_stop` | POST | Stop car | None |
-| `/car_speed` | POST | Set speed | `speed` (0-1023) |
-| `/car_left_forward` | POST | Left-forward diagonal | None |
-| `/car_right_forward` | POST | Right-forward diagonal | None |
-| `/car_left_backward` | POST | Left-backward diagonal | None |
-| `/car_right_backward` | POST | Right-backward diagonal | None |
+| `/car/forward` | POST | Move forward | None |
+| `/car/backward` | POST | Move backward | None |
+| `/car/left` | POST | Turn left | None |
+| `/car/right` | POST | Turn right | None |
+| `/car/stop` | POST | Stop car | None |
+| `/car/speed` | POST | Set speed | `speed` (0-1023) |
+| `/car/lf` | POST | Left-forward diagonal | None |
+| `/car/rf` | POST | Right-forward diagonal | None |
+| `/car/lb` | POST | Left-backward diagonal | None |
+| `/car/rb` | POST | Right-backward diagonal | None |
 
-### Status Endpoints
+#### GPIO Control
+| Endpoint | Method | Description | Parameters |
+|----------|--------|-------------|------------|
+| `/pin` | POST | Set pin state | `pin`, `state` |
+| `/pins/batch` | POST | Set multiple pins | JSON body |
+| `/pins` | GET | Get all pin states | None |
+| `/pin` | GET | Get individual pin state | `pin` |
+| `/toggle` | POST | Toggle pin state | `pin` |
+| `/reset` | POST | Reset all pins to LOW | None |
 
+#### System Endpoints
 | Endpoint | Method | Description | Response |
 |----------|--------|-------------|----------|
-| `/status` | GET | Get car status | JSON |
-| `/discover` | GET | Device discovery | JSON |
+| `/status` | GET | Get system status | JSON |
+| `/discovery` | GET | Device discovery info | JSON |
 | `/` | GET | Web interface | HTML |
+| `/update` | POST | OTA firmware update | Text |
 
 ### Status Response Format
 ```json
 {
-  "device": {
-    "name": "EZ Control Device",
-    "version": "5.0.0",
-    "mac": "AA:BB:CC:DD:EE:FF",
-    "ip": "192.168.1.100"
-  },
-  "car": {
-    "direction": "STOP",
-    "speed": 512,
-    "isMoving": false,
-    "lastCommand": "2024-08-07T10:30:00Z"
-  },
-  "wifi": {
-    "ssid": "YourWiFi",
-    "signal": -45,
-    "isConnected": true
-  }
+  "type": "status",
+  "car_enabled": true,
+  "current_speed": 512,
+  "current_direction": 1,
+  "wifi_mode": "wifi_client",
+  "device_ip": "192.168.1.100",
+  "gpio_states": [0, 1, 0, 1, 0, 0, 1, 0, 0, 0]
+}
+```
+
+### Discovery Response Format
+```json
+{
+  "device": "nodemcu",
+  "name": "EZ Control NodeMCU",
+  "version": "1.0.0",
+  "ip": "192.168.1.100",
+  "mode": "wifi_client",
+  "ssid": "YourWiFi",
+  "status": "connected",
+  "mac": "AA:BB:CC:DD:EE:FF",
+  "rssi": -45,
+  "availablePins": ["D0", "D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8", "A0"]
 }
 ```
 
@@ -414,44 +511,45 @@ curl -X POST http://192.168.1.100/car_right_backward
 
 ### Common Issues & Solutions
 
-#### 1. Motors Not Moving
-**Symptoms**: Car doesn't respond to commands
-**Solutions**:
-- ✅ Check 12V power supply to L298N
-- ✅ Verify motor wire connections
-- ✅ Test motors individually with 9V battery
-- ✅ Check if motors are properly mounted
-
-#### 2. WiFi Connection Failed
+#### 1. WiFi Connection Failed
 **Symptoms**: Device shows "Not Connected"
 **Solutions**:
 - ✅ Verify WiFi SSID and password
-- ✅ Check WiFi signal strength
-- ✅ Ensure NodeMCU is within range
-- ✅ Try Access Point mode as fallback
+- ✅ Device will automatically start hotspot mode
+- ✅ Connect to "Ez Control Device" hotspot
+- ✅ Check device IP (should be 192.168.4.1)
 
-#### 3. Wrong Movement Direction
-**Symptoms**: Car moves opposite to commands
+#### 2. WebSocket Connection Failed
+**Symptoms**: Real-time control not working
 **Solutions**:
-- ✅ Swap motor wires (OUT1/OUT2 or OUT3/OUT4)
+- ✅ Check if port 81 is accessible
+- ✅ Try HTTP API as fallback
+- ✅ Verify firewall settings
+- ✅ Check device IP address
+
+#### 3. GPIO Pins Not Responding
+**Symptoms**: GPIO control not working
+**Solutions**:
+- ✅ Check pin connections
+- ✅ Verify pin names (D0, D1, D2, etc.)
+- ✅ Use `/pins` endpoint to check current states
+- ✅ Test individual pins via HTTP API
+
+#### 4. Car Movement Issues
+**Symptoms**: Car doesn't move or moves incorrectly
+**Solutions**:
+- ✅ Check motor connections
+- ✅ Verify L298N power supply
+- ✅ Test individual motors via GPIO control
 - ✅ Check motor mounting direction
-- ✅ Verify pin connections match diagram
 
-#### 4. Speed Control Issues
-**Symptoms**: Speed doesn't change or motors stutter
+#### 5. Hotspot Not Working
+**Symptoms**: Can't connect to device hotspot
 **Solutions**:
-- ✅ Check D5 (PWM) connection to ENA
-- ✅ Verify motor driver ENA connection
-- ✅ Test with different speed values
-- ✅ Check power supply stability
-
-#### 5. Device Not Found
-**Symptoms**: App/website can't discover device
-**Solutions**:
-- ✅ Ensure devices are on same network
-- ✅ Check firewall settings
-- ✅ Try manual IP entry
-- ✅ Verify mDNS is working
+- ✅ Check if WiFi credentials are correct
+- ✅ Verify hotspot SSID: "Ez Control Device"
+- ✅ Password: "11223344"
+- ✅ Check device IP (should be 192.168.4.1)
 
 ### Testing Steps
 
@@ -470,17 +568,29 @@ void setup() {
 #### 2. WiFi Test
 ```cpp
 // Check Serial Monitor for:
-// "WiFi connected!"
-// "IP address: 192.168.1.xxx"
+// "WiFi connected successfully!"
+// "IP Address: 192.168.1.xxx"
+// "WebSocket server started on port 81"
 ```
 
-#### 3. API Test
+#### 3. WebSocket Test
+```javascript
+// Test WebSocket connection
+const ws = new WebSocket('ws://192.168.1.100:81');
+ws.onopen = () => console.log('Connected!');
+ws.send('{"command": "get_status"}');
+```
+
+#### 4. API Test
 ```bash
 # Test basic connectivity
 curl http://192.168.1.100/status
 
 # Test car control
-curl -X POST http://192.168.1.100/car_forward
+curl -X POST http://192.168.1.100/car/forward
+
+# Test GPIO control
+curl -X POST "http://192.168.1.100/pin?pin=D6&state=1"
 ```
 
 ### LED Status Indicators
@@ -500,6 +610,7 @@ curl -X POST http://192.168.1.100/car_forward
 
 - 🌐 Website: [https://pappuraj.com](https://pappuraj.com)
 - 📧 Email: me@pappuraj.com
+- 📱 Phone: +8801832755401
 - 💼 LinkedIn: [pappuraj](https://linkedin.com/in/pappuraj)
 
 ---
@@ -513,6 +624,7 @@ curl -X POST http://192.168.1.100/car_forward
 
 ---
 
-**Version**: 5.0.0  
-**Last Updated**: August 2024  
-**Compatible with**: NodeMCU ESP8266, Arduino IDE 2.0+ 
+**Version**: 4.0.0  
+**Last Updated**: December 2024  
+**Compatible with**: NodeMCU ESP8266, Arduino IDE 2.0+  
+**Features**: WebSocket, GPIO Control, Hotspot Mode, OTA Updates 
