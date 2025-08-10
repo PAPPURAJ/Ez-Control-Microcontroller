@@ -104,10 +104,10 @@ EZ Control is a comprehensive car control system that transforms your NodeMCU in
 
 | NodeMCU Pin | L298N Pin | Function | Wire Color |
 |-------------|-----------|----------|------------|
-| **D1 (GPIO5)** | **IN1** | Left Motor Forward | Red |
-| **D2 (GPIO4)** | **IN2** | Left Motor Backward | Blue |
-| **D3 (GPIO0)** | **IN3** | Right Motor Forward | Green |
-| **D4 (GPIO2)** | **IN4** | Right Motor Backward | Yellow |
+| **D1 (GPIO5)** | **IN1** | Right Motor Forward | Red |
+| **D2 (GPIO4)** | **IN2** | Right Motor Backward | Blue |
+| **D3 (GPIO0)** | **IN3** | Left Motor Forward | Green |
+| **D4 (GPIO2)** | **IN4** | Left Motor Backward | Yellow |
 | **D5 (GPIO14)** | **ENA** | Motor Speed Control | Orange |
 | **3.3V** | **VCC (Logic)** | Logic Power | White |
 | **GND** | **GND** | Common Ground | Black |
